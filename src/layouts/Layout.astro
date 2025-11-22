@@ -1,0 +1,192 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = "Kumlawdi - Your website description here.", image = `${import.meta.env.BASE_URL}og-image.jpg` } = Astro.props;
+
+// Get current path for active state
+const currentPath = Astro.url.pathname.replace(/\/$/, ''); // Remove trailing slash
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash
+const isActive = (path: string) => {
+  if (path === '' || path === '/') {
+    return currentPath === baseUrl || currentPath === '/' || currentPath === '';
+  }
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return currentPath === `${baseUrl}${normalizedPath}` || currentPath === normalizedPath;
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href={`${import.meta.env.BASE_URL}images/logo-red.jpg`} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:type" content="website" />
+    
+    <!-- Inter Tight Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <title>{title}</title>
+    <style>
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Navigation underline animation */
+      .nav-link {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .nav-underline {
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 1px;
+        background-color: #BC002D;
+        transition: width 0.3s ease;
+      }
+      
+      .nav-link:hover .nav-underline {
+        width: calc(100% - 0.5rem);
+      }
+      
+      .nav-link.active .nav-underline {
+        width: calc(100% - 0.5rem);
+      }
+    </style>
+  </head>
+  <body class="bg-brand-light text-brand-primary">
+    <nav class="bg-white border-b border-brand-gray">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <a href={import.meta.env.BASE_URL} class="flex items-center space-x-3">
+              <img 
+                src={`${import.meta.env.BASE_URL}images/logo-red.jpg`} 
+                alt="The Kumlawdi Foundation" 
+                class="h-10 w-auto"
+              />
+              <span class="text-xl font-bold text-brand-secondary hidden sm:inline">The Kumlawdi Foundation</span>
+            </a>
+          </div>
+          
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-3">
+            <a href={import.meta.env.BASE_URL} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('') || isActive('/') ? 'active' : ''}`}>
+              Home
+              <span class="nav-underline"></span>
+            </a>
+            <a href={`${import.meta.env.BASE_URL}about`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/about') ? 'active' : ''}`}>
+              About
+              <span class="nav-underline"></span>
+            </a>
+            <a href={`${import.meta.env.BASE_URL}teams`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/teams') ? 'active' : ''}`}>
+              Teams
+              <span class="nav-underline"></span>
+            </a>
+            <a href={`${import.meta.env.BASE_URL}support`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/support') ? 'active' : ''}`}>
+              Support
+              <span class="nav-underline"></span>
+            </a>
+            <a href={`${import.meta.env.BASE_URL}contact`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/contact') ? 'active' : ''}`}>
+              Contact
+              <span class="nav-underline"></span>
+            </a>
+          </div>
+          
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center">
+            <button type="button" id="mobile-menu-button" class="text-brand-secondary hover:text-brand-primary">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href={import.meta.env.BASE_URL} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('') || isActive('/') ? 'border-l-4 border-brand-secondary' : ''}`}>Home</a>
+          <a href={`${import.meta.env.BASE_URL}about`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/about') ? 'border-l-4 border-brand-secondary' : ''}`}>About</a>
+          <a href={`${import.meta.env.BASE_URL}teams`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/teams') ? 'border-l-4 border-brand-secondary' : ''}`}>Teams</a>
+          <a href={`${import.meta.env.BASE_URL}support`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/support') ? 'border-l-4 border-brand-secondary' : ''}`}>Support</a>
+          <a href={`${import.meta.env.BASE_URL}contact`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/contact') ? 'border-l-4 border-brand-secondary' : ''}`}>Contact</a>
+        </div>
+      </div>
+    </nav>
+    
+    <main>
+      <slot />
+    </main>
+    
+    <footer class="bg-brand-primary text-white mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="md:col-span-2">
+            <span class="text-xl font-bold text-white mb-4 block">The Kumlawdi Foundation</span>
+            <p class="text-sm text-gray-300 mb-4">
+              Empowering young men and women through the sport of football and beyond.
+            </p>
+            <p class="text-sm text-gray-300">
+              &copy; 2025 The Kumlawdi Foundation. All rights reserved.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Navigate</h3>
+            <ul class="space-y-2">
+              <li><a href={import.meta.env.BASE_URL} class="text-sm text-gray-300 hover:text-white transition-colors">Home</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}about`} class="text-sm text-gray-300 hover:text-white transition-colors">About</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}teams`} class="text-sm text-gray-300 hover:text-white transition-colors">Teams</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}support`} class="text-sm text-gray-300 hover:text-white transition-colors">Support</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}contact`} class="text-sm text-gray-300 hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Get Involved</h3>
+            <ul class="space-y-2">
+              <li><a href={`${import.meta.env.BASE_URL}support`} class="text-sm text-gray-300 hover:text-white transition-colors">Partner With Us</a></li>
+              <li><a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white transition-colors">Donate</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}contact`} class="text-sm text-gray-300 hover:text-white transition-colors">Volunteer</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuButton?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+      });
+    </script>
+    
+    <!-- Flowbite JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+    
+  </body>
+</html>
+

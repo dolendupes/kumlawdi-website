@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact Us - The Kumlawdi Foundation" description="Get in touch with The Kumlawdi Foundation to learn more about partnerships, volunteering, or supporting our mission.">
+  <div class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-brand-light to-white py-16 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center">
+          <h1 class="text-5xl md:text-6xl font-bold text-brand-primary mb-6 font-inter">
+            Get in Touch
+          </h1>
+          <p class="text-xl text-brand-gray leading-relaxed">
+            We'd love to hear from you. Whether you're interested in partnering, volunteering, or learning more about our mission, we're here to help.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <div>
+            <h2 class="text-3xl font-bold text-brand-primary mb-6 font-inter">Contact Information</h2>
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-lg font-semibold text-brand-primary mb-2">General Inquiries</h3>
+                <p class="text-brand-gray">
+                  For questions about partnerships, sponsorships, or general information about The Kumlawdi Foundation.
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-brand-primary mb-2">Volunteer Opportunities</h3>
+                <p class="text-brand-gray">
+                  Interested in mentoring, tutoring, or supporting our events? We'd love to have you join our team.
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-brand-primary mb-2">Media & Press</h3>
+                <p class="text-brand-gray">
+                  For media inquiries or press-related questions, please reach out through our general contact.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-brand-light p-8 rounded-lg">
+            <h2 class="text-3xl font-bold text-brand-primary mb-6 font-inter">Send Us a Message</h2>
+            <p class="text-brand-gray mb-6">
+              Please use the form below or reach out directly. We'll get back to you as soon as possible.
+            </p>
+            <form class="space-y-4" action="#" method="POST">
+              <div>
+                <label for="name" class="block text-sm font-medium text-brand-primary mb-2">Name</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-brand-gray rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-brand-primary mb-2">Email</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-brand-gray rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent">
+              </div>
+              <div>
+                <label for="subject" class="block text-sm font-medium text-brand-primary mb-2">Subject</label>
+                <select id="subject" name="subject" required class="w-full px-4 py-2 border border-brand-gray rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent">
+                  <option value="">Select a topic...</option>
+                  <option value="partnership">Partnership/Sponsorship</option>
+                  <option value="volunteer">Volunteer Opportunities</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="media">Media/Press</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-brand-primary mb-2">Message</label>
+                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border border-brand-gray rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent"></textarea>
+              </div>
+              <button type="submit" class="btn-primary w-full">
+                Send Message
+              </button>
+            </form>
+            <p class="text-sm text-brand-gray mt-4">
+              <em>Note: This is a contact form template. You'll need to set up a form handler (e.g., Formspree, Netlify Forms, or your own backend) to process submissions.</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="py-16 bg-brand-light">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-brand-primary mb-8 text-center font-inter">Quick Actions</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <a href="/support" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+            <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Partner With Us</h3>
+            <p class="text-brand-gray text-sm">Learn about sponsorship opportunities</p>
+          </a>
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+            <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Make a Donation</h3>
+            <p class="text-brand-gray text-sm">Support our mission directly</p>
+          </a>
+          <a href="/teams" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+            <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Learn About Teams</h3>
+            <p class="text-brand-gray text-sm">Meet Lady Yakpak & Tampa Flex</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
