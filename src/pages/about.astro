@@ -106,10 +106,10 @@ import Layout from '../layouts/Layout.astro';
           Join us in empowering the next generation. Learn how you can partner with us or support our mission.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/support" class="btn-outline inline-block text-center">
+          <a href={`${import.meta.env.BASE_URL}support`} class="btn-outline inline-block text-center">
             Get Involved
           </a>
-          <a href="/contact" class="bg-white text-brand-secondary px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors inline-block text-center">
+          <a href={`${import.meta.env.BASE_URL}contact`} class="bg-white text-brand-secondary px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors inline-block text-center">
             Contact Us
           </a>
         </div>

@@ -90,7 +90,7 @@ import Layout from '../layouts/Layout.astro';
           Your sponsorship helps provide equipment, travel support, training resources, and scholarship opportunities for our athletes.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/support" class="btn-outline inline-block text-center">
+          <a href={`${import.meta.env.BASE_URL}support`} class="btn-outline inline-block text-center">
             Become a Sponsor
           </a>
           <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white text-brand-secondary px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors inline-block text-center">

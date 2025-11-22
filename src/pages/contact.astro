@@ -92,7 +92,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-brand-primary mb-8 text-center font-inter">Quick Actions</h2>
         <div class="grid md:grid-cols-3 gap-6">
-          <a href="/support" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+          <a href={`${import.meta.env.BASE_URL}support`} class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
             <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Partner With Us</h3>
             <p class="text-brand-gray text-sm">Learn about sponsorship opportunities</p>
           </a>
@@ -100,7 +100,7 @@ import Layout from '../layouts/Layout.astro';
             <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Make a Donation</h3>
             <p class="text-brand-gray text-sm">Support our mission directly</p>
           </a>
-          <a href="/teams" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+          <a href={`${import.meta.env.BASE_URL}teams`} class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
             <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Learn About Teams</h3>
             <p class="text-brand-gray text-sm">Meet Lady Yakpak & Tampa Flex</p>
           </a>
