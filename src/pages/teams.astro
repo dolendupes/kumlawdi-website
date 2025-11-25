@@ -1,5 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import TeamCarousel from '../components/TeamCarousel.astro';
+
+// Placeholder for team images - update this array when images are added
+// Images should be placed in public/images/teams/ directory
+const teamImages = [
+  // Example structure - replace with actual images when available
+  // { src: 'images/teams/flex-1.jpg', alt: 'Tampa Flex team photo', team: 'flex' },
+  // { src: 'images/teams/yakpak-1.jpg', alt: 'Lady YakPak team photo', team: 'yakpak' },
+];
 ---
 
 <Layout title="Our Teams - The Kumlawdi Foundation" description="Meet Lady Yakpak and Tampa Flex, the football teams that form the foundation of The Kumlawdi Foundation community.">
@@ -30,9 +39,15 @@ import Layout from '../layouts/Layout.astro';
     <!-- Teams Section -->
     <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Image Carousel -->
+        {teamImages.length > 0 && (
+          <TeamCarousel images={teamImages} />
+        )}
+        
+        <!-- Team Information Cards -->
         <div class="grid md:grid-cols-2 gap-12 mb-16">
           <!-- Tampa Flex -->
-          <div class="bg-brand-light p-8 rounded-lg shadow-md border border-gray-200">
+          <div id="tampa-flex" class="bg-brand-light p-8 rounded-lg shadow-md border border-gray-200">
             <div class="mb-6 flex justify-center">
               <img 
                 src={`${import.meta.env.BASE_URL}images/flex-logo-icon.png`} 
@@ -71,7 +86,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Lady Yakpak -->
-          <div class="bg-brand-light p-8 rounded-lg shadow-md border border-gray-200">
+          <div id="yakpak" class="bg-brand-light p-8 rounded-lg shadow-md border border-gray-200">
             <div class="mb-6 flex justify-center">
               <img 
                 src={`${import.meta.env.BASE_URL}images/yakpak-logo.jpg`} 

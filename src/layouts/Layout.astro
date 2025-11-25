@@ -98,10 +98,35 @@ const isActive = (path: string) => {
               About
               <span class="nav-underline"></span>
             </a>
-            <a href={`${import.meta.env.BASE_URL}teams`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/teams') ? 'active' : ''}`}>
-              Teams
-              <span class="nav-underline"></span>
-            </a>
+            <!-- Teams Dropdown -->
+            <div class="relative group">
+              <a href={`${import.meta.env.BASE_URL}teams`} class={`relative uppercase tracking-wider text-xs font-medium text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/teams') ? 'active' : ''}`}>
+                <span class="inline-flex items-center gap-1 whitespace-nowrap">
+                  <span>Teams</span>
+                  <svg class="w-3 h-3 transition-transform group-hover:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+                <span class="nav-underline"></span>
+              </a>
+              <!-- Dropdown Menu -->
+              <div class="absolute left-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div class="py-2">
+                  <a href={`${import.meta.env.BASE_URL}teams`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors font-semibold">
+                    <span>Overview</span>
+                  </a>
+                  <div class="border-t border-gray-200 my-1"></div>
+                  <a href={`${import.meta.env.BASE_URL}teams#tampa-flex`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors">
+                    <img src={`${import.meta.env.BASE_URL}images/flex-logo-icon.png`} alt="Tampa Flex" class="w-5 h-5 object-contain" />
+                    <span>Tampa Flex</span>
+                  </a>
+                  <a href={`${import.meta.env.BASE_URL}teams#yakpak`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors">
+                    <img src={`${import.meta.env.BASE_URL}images/yakpak-logo.jpg`} alt="Lady YakPak" class="w-5 h-5 object-contain rounded" />
+                    <span>Lady YakPak</span>
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href={`${import.meta.env.BASE_URL}support`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/support') ? 'active' : ''}`}>
               Support
               <span class="nav-underline"></span>
@@ -128,7 +153,24 @@ const isActive = (path: string) => {
         <div class="px-2 pt-2 pb-3 space-y-1">
           <a href={import.meta.env.BASE_URL} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('') || isActive('/') ? 'border-l-4 border-brand-secondary' : ''}`}>Home</a>
           <a href={`${import.meta.env.BASE_URL}about`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/about') ? 'border-l-4 border-brand-secondary' : ''}`}>About</a>
-          <a href={`${import.meta.env.BASE_URL}teams`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/teams') ? 'border-l-4 border-brand-secondary' : ''}`}>Teams</a>
+          <div>
+            <button type="button" id="mobile-teams-toggle" class={`w-full flex items-center justify-between px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/teams') ? 'border-l-4 border-brand-secondary' : ''}`}>
+              <span>Teams</span>
+              <svg id="mobile-teams-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div id="mobile-teams-submenu" class="hidden pl-4">
+              <a href={`${import.meta.env.BASE_URL}teams#tampa-flex`} class="flex items-center gap-2 px-3 py-2 text-sm text-brand-secondary hover:text-brand-primary">
+                <img src={`${import.meta.env.BASE_URL}images/flex-logo-icon.png`} alt="Tampa Flex" class="w-4 h-4 object-contain" />
+                <span>Tampa Flex</span>
+              </a>
+              <a href={`${import.meta.env.BASE_URL}teams#yakpak`} class="flex items-center gap-2 px-3 py-2 text-sm text-brand-secondary hover:text-brand-primary">
+                <img src={`${import.meta.env.BASE_URL}images/yakpak-logo.jpg`} alt="Lady YakPak" class="w-4 h-4 object-contain rounded" />
+                <span>Lady YakPak</span>
+              </a>
+            </div>
+          </div>
           <a href={`${import.meta.env.BASE_URL}support`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/support') ? 'border-l-4 border-brand-secondary' : ''}`}>Support</a>
           <a href={`${import.meta.env.BASE_URL}contact`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/contact') ? 'border-l-4 border-brand-secondary' : ''}`}>Contact</a>
         </div>
@@ -186,6 +228,16 @@ const isActive = (path: string) => {
       
       mobileMenuButton?.addEventListener('click', () => {
         mobileMenu?.classList.toggle('hidden');
+      });
+      
+      // Mobile teams submenu toggle
+      const mobileTeamsToggle = document.getElementById('mobile-teams-toggle');
+      const mobileTeamsSubmenu = document.getElementById('mobile-teams-submenu');
+      const mobileTeamsIcon = document.getElementById('mobile-teams-icon');
+      
+      mobileTeamsToggle?.addEventListener('click', () => {
+        mobileTeamsSubmenu?.classList.toggle('hidden');
+        mobileTeamsIcon?.classList.toggle('rotate-180');
       });
     </script>
     

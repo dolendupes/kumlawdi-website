@@ -1,0 +1,137 @@
+---
+interface Props {
+  images: Array<{ src: string; alt: string; team: 'flex' | 'yakpak' }>;
+}
+
+const { images } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<div class="relative w-full max-w-4xl mx-auto mb-12">
+  <div id="team-carousel" class="relative overflow-hidden rounded-lg shadow-lg">
+    <div class="carousel-container flex transition-transform duration-500 ease-in-out" style="transform: translateX(0%)">
+      {images.map((image, index) => (
+        <div class="carousel-slide min-w-full">
+          <img 
+            src={`${baseUrl}${image.src}`}
+            alt={image.alt}
+            class="w-full h-[400px] md:h-[500px] object-cover"
+          />
+        </div>
+      ))}
+    </div>
+    
+    <!-- Navigation Arrows -->
+    {images.length > 1 && (
+      <>
+        <button 
+          id="carousel-prev"
+          class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-brand-secondary p-2 rounded-full shadow-lg transition-all z-10"
+          aria-label="Previous image"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button 
+          id="carousel-next"
+          class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-brand-secondary p-2 rounded-full shadow-lg transition-all z-10"
+          aria-label="Next image"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </>
+    )}
+    
+    <!-- Indicators -->
+    {images.length > 1 && (
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {images.map((_, index) => (
+          <button 
+            class={`carousel-indicator w-2 h-2 rounded-full transition-all ${index === 0 ? 'bg-white' : 'bg-white/50'}`}
+            data-index={index}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    if (typeof window === 'undefined') return;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const carousel = document.getElementById('team-carousel');
+      if (!carousel) return;
+      
+      const container = carousel.querySelector('.carousel-container');
+      const prevButton = document.getElementById('carousel-prev');
+      const nextButton = document.getElementById('carousel-next');
+      const indicators = carousel.querySelectorAll('.carousel-indicator');
+      
+      if (!container) return;
+      
+      let currentIndex = 0;
+      const totalSlides = container.querySelectorAll('.carousel-slide').length;
+      
+      const updateCarousel = function() {
+        const translateX = -currentIndex * 100;
+        container.style.transform = 'translateX(' + translateX + '%)';
+        
+        // Update indicators
+        indicators.forEach(function(indicator, index) {
+          if (index === currentIndex) {
+            indicator.classList.remove('bg-white/50');
+            indicator.classList.add('bg-white');
+          } else {
+            indicator.classList.remove('bg-white');
+            indicator.classList.add('bg-white/50');
+          }
+        });
+      };
+      
+      const goToSlide = function(index) {
+        currentIndex = index;
+        updateCarousel();
+      };
+      
+      const nextSlide = function() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+      };
+      
+      const prevSlide = function() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+      };
+      
+      if (prevButton) {
+        prevButton.addEventListener('click', prevSlide);
+      }
+      if (nextButton) {
+        nextButton.addEventListener('click', nextSlide);
+      }
+      
+      indicators.forEach(function(indicator, index) {
+        indicator.addEventListener('click', function() {
+          goToSlide(index);
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .carousel-container {
+    display: flex;
+  }
+  
+  .carousel-slide {
+    flex-shrink: 0;
+  }
+</style>
+
