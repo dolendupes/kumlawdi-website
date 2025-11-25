@@ -1,0 +1,112 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  videoSrc?: string;
+  videoSrcMov?: string; // Fallback for Safari
+  imageSrc?: string; // Fallback/alternative to video
+  ctaPrimary?: { text: string; href: string; external?: boolean };
+  ctaSecondary?: { text: string; href: string; external?: boolean };
+  overlay?: boolean; // Add dark overlay for text readability
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  videoSrc,
+  videoSrcMov,
+  imageSrc,
+  ctaPrimary,
+  ctaSecondary,
+  overlay = false
+} = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<section class="relative bg-gradient-to-b from-brand-light to-white py-16 lg:py-24 pb-12 lg:pb-16 overflow-hidden">
+  <!-- Background Video/Image -->
+  {videoSrc && (
+    <div class="absolute inset-0 w-full h-full z-0">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        class="absolute inset-0 w-full h-full object-cover opacity-30"
+        aria-hidden="true"
+      >
+        <source src={`${baseUrl}${videoSrc}`} type="video/webm" />
+        {videoSrcMov && <source src={`${baseUrl}${videoSrcMov}`} type="video/mp4" />}
+      </video>
+      {overlay && <div class="absolute inset-0 bg-black/20"></div>}
+    </div>
+  )}
+  
+  {!videoSrc && imageSrc && (
+    <div class="absolute inset-0 w-full h-full z-0">
+      <img
+        src={`${baseUrl}${imageSrc}`}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-20"
+        aria-hidden="true"
+      />
+      {overlay && <div class="absolute inset-0 bg-black/20"></div>}
+    </div>
+  )}
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-4xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold text-brand-primary mb-6 font-inter">
+        {title}
+      </h1>
+      {subtitle && (
+        <p class="text-lg md:text-xl text-brand-secondary font-semibold mb-4 tracking-wide">
+          {subtitle}
+        </p>
+      )}
+      {description && (
+        <p class="text-xl md:text-2xl text-brand-gray mb-8 leading-relaxed">
+          {description}
+        </p>
+      )}
+      {(ctaPrimary || ctaSecondary) && (
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          {ctaPrimary && (
+            <a
+              href={ctaPrimary.href}
+              target={ctaPrimary.external ? "_blank" : undefined}
+              rel={ctaPrimary.external ? "noopener noreferrer" : undefined}
+              class="bg-brand-secondary text-white px-8 py-3 rounded font-semibold hover:bg-brand-primary transition-colors inline-block text-center"
+            >
+              {ctaPrimary.text}
+            </a>
+          )}
+          {ctaSecondary && (
+            <a
+              href={ctaSecondary.href}
+              target={ctaSecondary.external ? "_blank" : undefined}
+              rel={ctaSecondary.external ? "noopener noreferrer" : undefined}
+              class="bg-white text-brand-secondary px-8 py-3 rounded font-semibold border-2 border-brand-secondary hover:bg-brand-light transition-colors inline-block text-center"
+            >
+              {ctaSecondary.text}
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hide video on mobile for performance, show image instead */
+  @media (max-width: 768px) {
+    video {
+      display: none;
+    }
+  }
+</style>
+
