@@ -11,7 +11,7 @@ const baseUrl = import.meta.env.BASE_URL;
   <div id="team-carousel" class="relative overflow-hidden rounded-lg shadow-lg bg-gray-100">
     <div class="carousel-container flex transition-transform duration-500 ease-in-out" style="transform: translateX(0%)">
       {images.map((image, index) => (
-        <div class="carousel-slide min-w-full flex items-center justify-center bg-gray-100">
+        <div class="carousel-slide w-full flex-shrink-0 flex items-center justify-center bg-gray-100">
           <img 
             src={`${baseUrl}${image.src}`}
             alt={image.alt}
@@ -130,10 +130,13 @@ const baseUrl = import.meta.env.BASE_URL;
 <style>
   .carousel-container {
     display: flex;
+    width: 100%;
   }
   
   .carousel-slide {
-    flex-shrink: 0;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
   }
 </style>
 
