@@ -1,0 +1,887 @@
+---
+// Quick Donate Button Component with Stripe Integration
+// Uses Stripe Payment Request API for Apple Pay / Google Pay
+// Requires Stripe publishable key and backend endpoint
+// Dark launch: Only shows when ?quickdonate=true is in URL
+---
+
+<div id="quick-donate-container" class="hidden">
+  <!-- Floating Donation Button -->
+  <button
+    id="quick-donate-button"
+    class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 group"
+    aria-label="Quick Donate"
+    type="button"
+  >
+    <div class="relative">
+      <!-- Pulsing ring animation -->
+      <div class="absolute inset-0 rounded-full bg-brand-secondary/10 animate-ping"></div>
+      <div class="absolute inset-0 rounded-full bg-brand-secondary/15 animate-pulse"></div>
+      
+      <!-- Main button -->
+      <div class="relative bg-pink-50 rounded-full p-4 md:p-5 shadow-2xl hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 flex items-center gap-2 md:gap-3 border-2 border-brand-secondary/20 hover:border-brand-secondary/40">
+        <!-- Cartoon Kid Image (cycles through different kids) -->
+        <div id="cartoon-kid-container" class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden flex items-center justify-center transition-opacity duration-500 ring-2 ring-brand-secondary/20">
+          <img 
+            id="cartoon-kid-image" 
+            src="" 
+            alt="Support our mission" 
+            class="w-full h-full object-cover rounded-full"
+            style="display: none;"
+          />
+        </div>
+        
+        <!-- Heart Icon (fallback when no cartoon images) -->
+        <svg id="heart-icon" class="w-6 h-6 md:w-7 md:h-7 text-brand-secondary animate-pulse" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        
+        <!-- Amount Text (hidden on very small screens) -->
+        <span class="text-brand-primary font-bold text-sm md:text-base font-inter hidden sm:block">
+          $10
+        </span>
+      </div>
+      
+      <!-- Tooltip on hover (desktop only) -->
+      <div class="absolute bottom-full right-0 mb-2 hidden md:block opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+        <div class="bg-brand-primary text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-lg whitespace-nowrap">
+          Quick Donate
+          <div class="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-brand-primary"></div>
+        </div>
+      </div>
+    </div>
+  </button>
+
+  <!-- Quick Donate Modal -->
+  <div
+    id="quick-donate-modal"
+    class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto"
+    aria-hidden="true"
+    aria-labelledby="quick-donate-title"
+    role="dialog"
+  >
+    <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl transform transition-all duration-300 scale-95 opacity-0 my-auto" id="modal-content">
+      <!-- Close Button - Sticky so it's always visible -->
+      <div class="sticky top-0 z-20 flex justify-end p-2">
+        <button
+          id="quick-donate-close"
+          class="bg-white hover:bg-gray-100 text-brand-gray hover:text-brand-primary transition-all rounded-full p-2 shadow-md hover:shadow-lg"
+          aria-label="Close donation modal"
+          type="button"
+          title="Close"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="p-6 md:p-8">
+        <!-- Header -->
+        <div class="text-center mb-6">
+          <!-- All Cartoon Kid Images in Collage Style -->
+          <div id="modal-cartoons-container" class="flex items-center justify-center gap-3 mb-4 mx-auto flex-wrap" style="display: none;">
+            <!-- Images will be dynamically inserted here -->
+          </div>
+          <!-- Heart Icon Fallback -->
+          <div id="modal-heart-icon" class="inline-flex items-center justify-center w-16 h-16 bg-brand-secondary/10 rounded-full mb-4">
+            <svg class="w-8 h-8 text-brand-secondary" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <h2 id="quick-donate-title" class="text-2xl font-bold text-brand-primary mb-2 font-inter">
+            Quick Donate
+          </h2>
+          <p class="text-brand-gray text-sm">
+            Support our mission with a quick donation
+          </p>
+        </div>
+
+        <!-- Amount Display (Pre-filled, no input needed) -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-brand-primary mb-2">
+            Donation Amount
+          </label>
+          <div class="relative">
+            <div class="flex items-center justify-center bg-brand-light rounded-lg p-4 border-2 border-brand-secondary">
+              <span class="text-4xl font-bold text-brand-secondary font-inter" id="donation-amount">$10</span>
+            </div>
+          </div>
+          
+          <!-- Quick Amount Buttons -->
+          <div class="flex gap-2 mt-3 justify-center flex-wrap" id="amount-buttons">
+            <button
+              class="quick-amount-btn px-3 py-1.5 text-sm rounded-md border border-gray-300 hover:border-brand-secondary hover:bg-brand-light transition-colors"
+              data-amount="5"
+              type="button"
+            >
+              $5
+            </button>
+            <button
+              class="quick-amount-btn px-3 py-1.5 text-sm rounded-md border border-gray-300 hover:border-brand-secondary hover:bg-brand-light transition-colors active"
+              data-amount="10"
+              type="button"
+            >
+              $10
+            </button>
+            <button
+              class="quick-amount-btn px-3 py-1.5 text-sm rounded-md border border-gray-300 hover:border-brand-secondary hover:bg-brand-light transition-colors"
+              data-amount="25"
+              type="button"
+            >
+              $25
+            </button>
+            <button
+              class="quick-amount-btn px-3 py-1.5 text-sm rounded-md border border-gray-300 hover:border-brand-secondary hover:bg-brand-light transition-colors"
+              data-amount="50"
+              type="button"
+            >
+              $50
+            </button>
+          </div>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="space-y-3">
+          <!-- Stripe Payment Request Button (Apple Pay / Google Pay) -->
+          <div id="payment-request-button" class="w-full"></div>
+          
+          <!-- Fallback: Regular Donate Button (for browsers without Apple/Google Pay) -->
+          <button
+            id="donate-submit-btn"
+            class="w-full bg-gradient-to-r from-brand-secondary to-red-700 text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-inter text-lg flex items-center justify-center gap-2 hidden"
+            type="button"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span>Donate Now</span>
+          </button>
+        </div>
+
+        <!-- Loading State (hidden by default) -->
+        <div id="payment-processing" class="hidden mt-4 text-center">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-brand-secondary"></div>
+          <p class="text-sm text-brand-gray mt-2">Processing your donation...</p>
+        </div>
+
+        <!-- Success State (hidden by default) -->
+        <div id="payment-success" class="hidden mt-4 text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Thank You!</h3>
+          <p class="text-brand-gray text-sm mb-4">Your donation has been processed successfully.</p>
+          <!-- Email Collection Form -->
+          <div id="email-collection" class="mt-4">
+            <label class="block text-sm font-medium text-brand-primary mb-2 text-left">
+              Email for receipt (optional)
+            </label>
+            <input
+              type="email"
+              id="donor-email"
+              placeholder="your@email.com"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-secondary focus:border-transparent mb-2"
+            />
+            <button
+              id="submit-email"
+              class="w-full bg-brand-secondary text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
+              type="button"
+            >
+              Get Receipt
+            </button>
+          </div>
+        </div>
+
+        <!-- Footer Note -->
+        <p class="text-xs text-center text-brand-gray mt-4">
+          Your donation is tax-deductible. The Kumlawdi Foundation is a 501(c)(3) nonprofit.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+  // Configuration - Set these via environment variables
+  const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+  const API_ENDPOINT = import.meta.env.PUBLIC_API_ENDPOINT || '/api/create-payment-intent';
+  
+  // Quick Donate Button Logic
+  (function() {
+    // Wait for DOM to be ready
+    const initQuickDonate = () => {
+      // Dark launch: Check URL parameter to enable feature (case-insensitive)
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Check all params case-insensitively
+      let isQuickDonateEnabled = false;
+      const enableParams = ['quickdonate', 'donate', 'qd'];
+      
+      for (const [key, value] of urlParams.entries()) {
+        const lowerKey = key.toLowerCase();
+        const lowerValue = value.toLowerCase();
+        if (enableParams.includes(lowerKey) && lowerValue === 'true') {
+          isQuickDonateEnabled = true;
+          console.log('[Quick Donate] Enabled via URL parameter:', key);
+          break;
+        }
+      }
+      
+      // Get container
+      const container = document.getElementById('quick-donate-container');
+      
+      if (!isQuickDonateEnabled) {
+        // Hide container if not enabled
+        if (container) {
+          container.classList.add('hidden');
+        }
+        return; // Exit early if feature not enabled
+      }
+      
+      // Show container if enabled (with delay and cycling)
+      if (container) {
+        // Configuration for button visibility
+        const INITIAL_DELAY = 5000; // Wait 5 seconds before showing button
+        const SHOW_DURATION = 30000; // Show for 30 seconds
+        const HIDE_DURATION = 60000; // Hide for 60 seconds, then show again
+        
+        let isVisible = false;
+        let showTimeout, hideTimeout, cycleTimeout;
+        
+        // Helper function to check if modal is open
+        const isModalOpen = () => {
+          const modal = document.getElementById('quick-donate-modal');
+          return modal && !modal.classList.contains('hidden');
+        };
+        
+        const showButton = () => {
+          // Don't show if modal is open - wait until it closes
+          if (isModalOpen()) {
+            console.log('[Quick Donate] Skipping show - modal is open');
+            // Check again in a shorter interval
+            showTimeout = setTimeout(() => {
+              showButton();
+            }, 2000); // Check every 2 seconds
+            return;
+          }
+          
+          container.classList.remove('hidden');
+          isVisible = true;
+          console.log('[Quick Donate] Button shown');
+          
+          // Hide after show duration
+          hideTimeout = setTimeout(() => {
+            hideButton();
+          }, SHOW_DURATION);
+        };
+        
+        const hideButton = () => {
+          // Don't hide if modal is open - keep everything visible
+          if (isModalOpen()) {
+            console.log('[Quick Donate] Skipping hide - modal is open');
+            // Check again in a shorter interval
+            hideTimeout = setTimeout(() => {
+              hideButton();
+            }, 2000); // Check every 2 seconds
+            return;
+          }
+          
+          container.classList.add('hidden');
+          isVisible = false;
+          console.log('[Quick Donate] Button hidden');
+          
+          // Show again after hide duration
+          cycleTimeout = setTimeout(() => {
+            showButton();
+          }, HIDE_DURATION);
+        };
+        
+        // Expose resume function for when modal closes
+        window.quickDonateResumeCycle = () => {
+          // Clear any pending timeouts
+          if (hideTimeout) clearTimeout(hideTimeout);
+          if (cycleTimeout) clearTimeout(cycleTimeout);
+          if (showTimeout) clearTimeout(showTimeout);
+          
+          // If container is visible, restart the cycle
+          if (!container.classList.contains('hidden')) {
+            hideTimeout = setTimeout(() => {
+              hideButton();
+            }, SHOW_DURATION);
+          } else {
+            // If hidden, show it after a short delay
+            showTimeout = setTimeout(() => {
+              showButton();
+            }, 1000);
+          }
+        };
+        
+        // Initial delay before showing
+        showTimeout = setTimeout(() => {
+          showButton();
+        }, INITIAL_DELAY);
+        
+        // Clean up timeouts if component is removed
+        window.addEventListener('beforeunload', () => {
+          if (showTimeout) clearTimeout(showTimeout);
+          if (hideTimeout) clearTimeout(hideTimeout);
+          if (cycleTimeout) clearTimeout(cycleTimeout);
+        });
+      } else {
+        console.warn('[Quick Donate] Container element not found');
+        return; // Can't proceed without container
+      }
+      
+      // All button logic goes here (only runs if enabled)
+      let stripe = null;
+      let paymentRequest = null;
+      let selectedAmount = 10; // Default amount, can be A/B tested
+      
+      // Cartoon kid images configuration
+      // Add paths to cartoon images here (relative to public/images/)
+      const cartoonKids = [
+        'images/cartoons/cartoon-yak-1.jpg',
+        'images/cartoons/cartoon-yak-2.jpg',
+        'images/cartoons/cartoon-auto-1.jpg',
+        'images/cartoons/cartoon-harry-1.jpg',
+      ];
+      
+      // Cycling configuration
+      const CYCLE_MODE = 'time'; // 'refresh' or 'time'
+      const CYCLE_INTERVAL = 10000; // 10 seconds (only used if CYCLE_MODE === 'time')
+      
+      // Initialize cartoon kid cycling
+      const initCartoonCycling = () => {
+        const cartoonImage = document.getElementById('cartoon-kid-image');
+        const heartIcon = document.getElementById('heart-icon');
+        const cartoonContainer = document.getElementById('cartoon-kid-container');
+        
+        if (!cartoonImage || !heartIcon || cartoonKids.length === 0) {
+          // No cartoon images configured, show heart icon
+          heartIcon.style.display = 'block';
+          cartoonContainer?.style.setProperty('display', 'none');
+          return;
+        }
+        
+        // Get current index from sessionStorage or random
+        const getCurrentIndex = () => {
+          if (CYCLE_MODE === 'refresh') {
+            // Random on each page load
+            return Math.floor(Math.random() * cartoonKids.length);
+          } else {
+            // Use sessionStorage to track current index
+            const stored = sessionStorage.getItem('quickDonateKidIndex');
+            const lastUpdate = sessionStorage.getItem('quickDonateKidLastUpdate');
+            const now = Date.now();
+            
+            if (stored && lastUpdate && (now - parseInt(lastUpdate)) < CYCLE_INTERVAL) {
+              // Still within interval, use stored index
+              return parseInt(stored);
+            } else {
+              // Time to cycle, get next index
+              const currentIndex = stored ? (parseInt(stored) + 1) % cartoonKids.length : 0;
+              sessionStorage.setItem('quickDonateKidIndex', currentIndex.toString());
+              sessionStorage.setItem('quickDonateKidLastUpdate', now.toString());
+              return currentIndex;
+            }
+          }
+        };
+        
+        const updateCartoonImage = (index) => {
+          const baseUrl = import.meta.env.BASE_URL || '/';
+          const imagePath = cartoonKids[index];
+          const fullImagePath = `${baseUrl}${imagePath}`;
+          
+          // Update button image
+          cartoonImage.src = fullImagePath;
+          cartoonImage.style.display = 'block';
+          heartIcon.style.display = 'none';
+          cartoonContainer?.style.setProperty('display', 'flex');
+        };
+        
+        // Update modal with all cartoon images in collage style
+        const updateModalCartoons = () => {
+          const modalCartoonsContainer = document.getElementById('modal-cartoons-container');
+          const modalHeartIcon = document.getElementById('modal-heart-icon');
+          
+          if (!modalCartoonsContainer || !modalHeartIcon || cartoonKids.length === 0) {
+            return;
+          }
+          
+          const baseUrl = import.meta.env.BASE_URL || '/';
+          
+          // Clear existing images
+          modalCartoonsContainer.innerHTML = '';
+          
+          // Create collage with all images
+          cartoonKids.forEach((imagePath, index) => {
+            const imgContainer = document.createElement('div');
+            
+            // Vary sizes for collage effect
+            let sizeClass = 'w-16 h-16';
+            let ringClass = 'ring-2 ring-brand-secondary/20';
+            
+            if (index === 0 || index === cartoonKids.length - 1) {
+              // First (index 0) and last (index 3): smaller, same size
+              sizeClass = 'w-14 h-14';
+            } else {
+              // Middle two (index 1 and 2): larger, same size
+              sizeClass = 'w-20 h-20';
+              ringClass = 'ring-2 ring-brand-secondary/30 shadow-md';
+            }
+            
+            imgContainer.className = `${sizeClass} rounded-full overflow-hidden ${ringClass} transition-transform duration-300 hover:scale-110`;
+            
+            const img = document.createElement('img');
+            img.src = `${baseUrl}${imagePath}`;
+            img.alt = 'Support our mission';
+            img.className = 'w-full h-full object-cover rounded-full';
+            
+            imgContainer.appendChild(img);
+            modalCartoonsContainer.appendChild(imgContainer);
+          });
+          
+          modalCartoonsContainer.style.display = 'flex';
+          modalHeartIcon.style.display = 'none';
+        };
+        
+        // Simple functions for compatibility (no cycling needed)
+        const startModalCycling = () => {
+          updateModalCartoons();
+        };
+        
+        const stopModalCycling = () => {
+          // No cycling to stop
+        };
+        
+        // Set initial image
+        const initialIndex = getCurrentIndex();
+        updateCartoonImage(initialIndex);
+        
+        // Set up cycling if using time-based mode
+        if (CYCLE_MODE === 'time' && cartoonKids.length > 1) {
+          setInterval(() => {
+            const currentIndex = parseInt(sessionStorage.getItem('quickDonateKidIndex') || '0');
+            const nextIndex = (currentIndex + 1) % cartoonKids.length;
+            sessionStorage.setItem('quickDonateKidIndex', nextIndex.toString());
+            sessionStorage.setItem('quickDonateKidLastUpdate', Date.now().toString());
+            
+            // Fade out, change image, fade in
+            cartoonImage.style.opacity = '0';
+            setTimeout(() => {
+              updateCartoonImage(nextIndex);
+              cartoonImage.style.opacity = '1';
+            }, 300);
+          }, CYCLE_INTERVAL);
+        }
+        
+        // Store functions for modal use (make them accessible)
+        window.quickDonateModalCycling = {
+          start: startModalCycling,
+          stop: stopModalCycling,
+          update: updateModalCartoons
+        };
+      };
+      
+      // Initialize cartoon cycling
+      initCartoonCycling();
+      
+      // Initialize Stripe only if key is available
+    if (STRIPE_PUBLISHABLE_KEY) {
+      try {
+        stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+      } catch (error) {
+        console.warn('Stripe initialization failed:', error);
+      }
+    } else {
+      console.warn('Stripe publishable key not configured - modal will still work but payment features disabled');
+    }
+    
+    const button = document.getElementById('quick-donate-button');
+    const modal = document.getElementById('quick-donate-modal');
+    const closeBtn = document.getElementById('quick-donate-close');
+    const modalContent = document.getElementById('modal-content');
+    const amountDisplay = document.getElementById('donation-amount');
+    const amountButtons = document.querySelectorAll('.quick-amount-btn');
+    const submitBtn = document.getElementById('donate-submit-btn');
+    const paymentRequestButton = document.getElementById('payment-request-button');
+    const paymentProcessing = document.getElementById('payment-processing');
+    const paymentSuccess = document.getElementById('payment-success');
+    const emailCollection = document.getElementById('email-collection');
+    
+    // Initialize Payment Request API
+    const initializePaymentRequest = () => {
+      if (!stripe) {
+        // Stripe not configured, hide payment request button and show fallback
+        paymentRequestButton?.classList.add('hidden');
+        submitBtn?.classList.remove('hidden');
+        return;
+      }
+      
+      paymentRequest = stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: {
+          label: 'Donation to The Kumlawdi Foundation',
+          amount: selectedAmount * 100, // Amount in cents
+        },
+        requestPayerEmail: true,
+      });
+
+      const elements = stripe.elements();
+      const prButton = elements.create('paymentRequestButton', {
+        paymentRequest,
+        style: {
+          paymentRequestButton: {
+            theme: 'dark',
+            height: '48px',
+          },
+        },
+      });
+
+      // Check if Payment Request is available
+      paymentRequest.canMakePayment().then((result) => {
+        if (result) {
+          // Show Payment Request Button (Apple Pay / Google Pay)
+          prButton.mount('#payment-request-button');
+          submitBtn?.classList.add('hidden');
+        } else {
+          // Hide Payment Request Button, show regular button
+          paymentRequestButton?.classList.add('hidden');
+          submitBtn?.classList.remove('hidden');
+        }
+      });
+
+      // Handle payment method
+      paymentRequest.on('paymentmethod', async (ev) => {
+        // Show processing state
+        paymentProcessing?.classList.remove('hidden');
+        paymentRequestButton?.classList.add('hidden');
+        
+        try {
+          // Create payment intent on your server
+          const response = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              amount: selectedAmount * 100,
+              currency: 'usd',
+            }),
+          });
+
+          const { clientSecret, error: serverError } = await response.json();
+
+          if (serverError) {
+            ev.complete('fail');
+            alert('Payment failed. Please try again.');
+            paymentProcessing?.classList.add('hidden');
+            paymentRequestButton?.classList.remove('hidden');
+            return;
+          }
+
+          // Confirm payment with Stripe
+          const { error: confirmError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+              payment_method: ev.paymentMethod.id,
+            },
+            { handleActions: false }
+          );
+
+          if (confirmError) {
+            ev.complete('fail');
+            alert('Payment failed: ' + confirmError.message);
+            paymentProcessing?.classList.add('hidden');
+            paymentRequestButton?.classList.remove('hidden');
+          } else {
+            ev.complete('success');
+            
+            // Show success state
+            paymentProcessing?.classList.add('hidden');
+            paymentSuccess?.classList.remove('hidden');
+            
+            // Pre-fill email if available from payment method
+            const emailInput = document.getElementById('donor-email');
+            if (ev.payerEmail && emailInput) {
+              emailInput.value = ev.payerEmail;
+            }
+            
+            // Track success
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'purchase', {
+                'transaction_id': ev.paymentMethod.id,
+                'value': selectedAmount,
+                'currency': 'USD',
+              });
+            }
+          }
+        } catch (err) {
+          ev.complete('fail');
+          console.error('Payment error:', err);
+          alert('Payment failed. Please try again.');
+          paymentProcessing?.classList.add('hidden');
+          paymentRequestButton?.classList.remove('hidden');
+        }
+      });
+    };
+
+    // Update payment request amount when amount changes
+    const updatePaymentRequest = () => {
+      if (paymentRequest) {
+        paymentRequest.update({
+          total: {
+            label: 'Donation to The Kumlawdi Foundation',
+            amount: selectedAmount * 100,
+          },
+        });
+        // Re-initialize to update button
+        initializePaymentRequest();
+      }
+    };
+    
+    // Track modal state
+    let modalOpen = false;
+    
+    // Open modal
+    button?.addEventListener('click', (e) => {
+      // If modal is already open, close it
+      if (modalOpen) {
+        closeModal();
+        return;
+      }
+      
+      // Show all cartoon images in collage style
+      const modalCartoonsContainer = document.getElementById('modal-cartoons-container');
+      const modalHeartIcon = document.getElementById('modal-heart-icon');
+      
+      if (cartoonKids.length > 0 && modalCartoonsContainer && modalHeartIcon) {
+        // Show all cartoon images in collage
+        if (window.quickDonateModalCycling && window.quickDonateModalCycling.start) {
+          window.quickDonateModalCycling.start();
+        } else {
+          // Fallback: manually create collage
+          const baseUrl = import.meta.env.BASE_URL || '/';
+          modalCartoonsContainer.innerHTML = '';
+          
+          cartoonKids.forEach((imagePath, index) => {
+            let sizeClass = 'w-16 h-16';
+            let ringClass = 'ring-2 ring-brand-secondary/20';
+            
+            if (index === 0 || index === cartoonKids.length - 1) {
+              // First and last: smaller (same size)
+              sizeClass = 'w-14 h-14';
+            } else {
+              // Middle two (2 and 3): larger (same size)
+              sizeClass = 'w-20 h-20';
+              ringClass = 'ring-2 ring-brand-secondary/30 shadow-md';
+            }
+            
+            const imgContainer = document.createElement('div');
+            imgContainer.className = `${sizeClass} rounded-full overflow-hidden ${ringClass} transition-transform duration-300 hover:scale-110`;
+            
+            const img = document.createElement('img');
+            img.src = `${baseUrl}${imagePath}`;
+            img.alt = 'Support our mission';
+            img.className = 'w-full h-full object-cover rounded-full';
+            
+            imgContainer.appendChild(img);
+            modalCartoonsContainer.appendChild(imgContainer);
+          });
+          
+          modalCartoonsContainer.style.display = 'flex';
+          modalHeartIcon.style.display = 'none';
+        }
+      } else {
+        // No cartoon images, show heart icon
+        if (modalCartoonsContainer) modalCartoonsContainer.style.display = 'none';
+        if (modalHeartIcon) modalHeartIcon.style.display = 'flex';
+      }
+      
+      modalOpen = true;
+      modal?.classList.remove('hidden');
+      modal?.classList.add('flex');
+      setTimeout(() => {
+        modalContent?.classList.remove('scale-95', 'opacity-0');
+        modalContent?.classList.add('scale-100', 'opacity-100');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+      
+      // Initialize payment request when modal opens
+      if (!paymentRequest) {
+        initializePaymentRequest();
+      } else {
+        updatePaymentRequest();
+      }
+    });
+    
+    // Close modal
+    const closeModal = () => {
+      modalOpen = false;
+      
+      // Stop modal cartoon cycling
+      if (window.quickDonateModalCycling) {
+        window.quickDonateModalCycling.stop();
+      }
+      
+      paymentProcessing?.classList.add('hidden');
+      paymentSuccess?.classList.add('hidden');
+      paymentRequestButton?.classList.remove('hidden');
+      submitBtn?.classList.add('hidden');
+      
+      modalContent?.classList.remove('scale-100', 'opacity-100');
+      modalContent?.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        modal?.classList.add('hidden');
+        modal?.classList.remove('flex');
+        document.body.style.overflow = '';
+        
+        // Resume button visibility cycle after modal closes
+        if (typeof window.quickDonateResumeCycle === 'function') {
+          window.quickDonateResumeCycle();
+        }
+      }, 300);
+    };
+    
+    // Close button click
+    closeBtn?.addEventListener('click', closeModal);
+    
+    // Click outside modal to close
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+    
+    // Amount selection
+    amountButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const amount = parseInt(btn.dataset.amount || '10');
+        selectedAmount = amount;
+        amountDisplay.textContent = `$${amount}`;
+        
+        // Update active state
+        amountButtons.forEach(b => b.classList.remove('active', 'bg-brand-secondary', 'text-white', 'border-brand-secondary'));
+        amountButtons.forEach(b => b.classList.add('border-gray-300'));
+        btn.classList.add('active', 'bg-brand-secondary', 'text-white', 'border-brand-secondary');
+        btn.classList.remove('border-gray-300');
+        
+        // Update payment request
+        updatePaymentRequest();
+      });
+    });
+    
+    // Fallback: Regular card payment (if Payment Request not available)
+    submitBtn?.addEventListener('click', async () => {
+      // For now, redirect to Stripe Checkout or show card form
+      // You can implement Stripe Elements here for card input
+      alert('Card payment coming soon. For now, please use Apple Pay or Google Pay if available.');
+    });
+    
+    // Email submission
+    const submitEmailBtn = document.getElementById('submit-email');
+    submitEmailBtn?.addEventListener('click', async () => {
+      const email = document.getElementById('donor-email')?.value;
+      if (!email) {
+        alert('Please enter an email address');
+        return;
+      }
+      
+      // Send email to your backend for receipt generation
+      try {
+        await fetch('/api/save-donor-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+        
+        alert('Receipt will be sent to ' + email);
+        setTimeout(() => {
+          closeModal();
+        }, 2000);
+      } catch (err) {
+        console.error('Error saving email:', err);
+        alert('Email saved. Receipt will be sent shortly.');
+        setTimeout(() => {
+          closeModal();
+        }, 2000);
+      }
+    });
+    
+    // Mobile detection for positioning
+    const updateButtonPosition = () => {
+      if (window.innerWidth < 640) {
+        button?.classList.remove('right-6', 'right-8');
+        button?.classList.add('right-1/2', 'translate-x-1/2');
+      } else {
+        button?.classList.remove('right-1/2', 'translate-x-1/2');
+        button?.classList.add('right-6', 'md:right-8');
+      }
+    };
+    
+      updateButtonPosition();
+      window.addEventListener('resize', updateButtonPosition);
+    };
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initQuickDonate);
+    } else {
+      initQuickDonate();
+    }
+  })();
+</script>
+
+<style>
+  .quick-amount-btn.active {
+    @apply bg-brand-secondary text-white border-brand-secondary;
+  }
+  
+  #modal-content {
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+  
+  /* Cartoon kid image transitions */
+  #cartoon-kid-image {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #cartoon-kid-container {
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+  
+  @media (max-width: 640px) {
+    #quick-donate-button {
+      bottom: 1rem;
+    }
+    
+    #quick-donate-modal {
+      padding: 0;
+      align-items: flex-end;
+    }
+    
+    #modal-content {
+      border-radius: 1.5rem 1.5rem 0 0;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+</style>

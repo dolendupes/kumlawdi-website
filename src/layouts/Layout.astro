@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import QuickDonateButton from '../components/QuickDonateButton.astro';
 
 export interface Props {
   title: string;
@@ -229,6 +230,9 @@ const isActive = (path: string) => {
         </div>
       </div>
     </footer>
+    
+    <!-- Quick Donate Button (Floating) -->
+    <QuickDonateButton />
     
     <script>
       // Mobile menu toggle

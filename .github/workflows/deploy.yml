@@ -35,6 +35,14 @@ jobs:
         run: npm ci
 
       - name: Build website
+        env:
+          # Stripe keys - stored as GitHub Secrets
+          # Only publishable key is needed for static build (safe to include in client-side code)
+          # Secret key is only needed for API endpoints (server-side)
+          PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+          PUBLIC_API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+          # Only set GITHUB_PAGES for GitHub Pages builds
+          GITHUB_PAGES: 'true'
         run: npm run build
 
       - name: Upload artifact
@@ -52,4 +60,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
