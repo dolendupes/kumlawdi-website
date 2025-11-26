@@ -34,6 +34,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check for custom domain
+        id: check_cname
+        run: |
+          if [ -f "public/CNAME" ]; then
+            echo "has_cname=true" >> $GITHUB_OUTPUT
+            echo "Custom domain detected - using base: '/'"
+          else
+            echo "has_cname=false" >> $GITHUB_OUTPUT
+            echo "No custom domain - using base: '/kumlawdi-website/'"
+          fi
+
       - name: Build website
         env:
           # Stripe keys - stored as GitHub Secrets
@@ -41,8 +52,9 @@ jobs:
           # Secret key is only needed for API endpoints (server-side)
           PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
           PUBLIC_API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-          # Only set GITHUB_PAGES for GitHub Pages builds
-          GITHUB_PAGES: 'true'
+          # Only set GITHUB_PAGES=true for GitHub Pages subdomain builds
+          # Custom domains (with CNAME) should use base: '/' (GITHUB_PAGES=false)
+          GITHUB_PAGES: ${{ steps.check_cname.outputs.has_cname == 'true' && 'false' || 'true' }}
         run: npm run build
 
       - name: Upload artifact
