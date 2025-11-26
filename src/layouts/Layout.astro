@@ -152,10 +152,30 @@ const isActive = (path: string) => {
                 </div>
               </div>
             </div>
-            <a href={`${import.meta.env.BASE_URL}contact`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/contact') ? 'active' : ''}`}>
-              Contact
-              <span class="nav-underline"></span>
-            </a>
+            <!-- Connect Dropdown -->
+            <div class="relative group">
+              <a href={`${import.meta.env.BASE_URL}contact`} class={`relative uppercase tracking-wider text-xs font-medium text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/contact') || isActive('/follow-us') ? 'active' : ''}`}>
+                <span class="inline-flex items-center gap-1 whitespace-nowrap">
+                  <span>Connect</span>
+                  <svg class="w-3 h-3 transition-transform group-hover:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+                <span class="nav-underline"></span>
+              </a>
+              <!-- Dropdown Menu -->
+              <div class="absolute left-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div class="py-2">
+                  <a href={`${import.meta.env.BASE_URL}contact`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors font-semibold">
+                    <span>Contact Us</span>
+                  </a>
+                  <div class="border-t border-gray-200 my-1"></div>
+                  <a href={`${import.meta.env.BASE_URL}follow-us`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors">
+                    <span>Follow Us</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           
           <!-- Mobile menu button -->
@@ -208,7 +228,22 @@ const isActive = (path: string) => {
               </a>
             </div>
           </div>
-          <a href={`${import.meta.env.BASE_URL}contact`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/contact') ? 'border-l-4 border-brand-secondary' : ''}`}>Contact</a>
+          <div>
+            <button type="button" id="mobile-contact-toggle" class={`w-full flex items-center justify-between px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/contact') || isActive('/follow-us') ? 'border-l-4 border-brand-secondary' : ''}`}>
+              <span>Connect</span>
+              <svg id="mobile-contact-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div id="mobile-contact-submenu" class="hidden pl-4">
+              <a href={`${import.meta.env.BASE_URL}contact`} class="block px-3 py-2 text-sm text-brand-secondary hover:text-brand-primary">
+                Contact Us
+              </a>
+              <a href={`${import.meta.env.BASE_URL}follow-us`} class="block px-3 py-2 text-sm text-brand-secondary hover:text-brand-primary">
+                Follow Us
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -249,6 +284,7 @@ const isActive = (path: string) => {
               <li><a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white transition-colors">Donate</a></li>
               <li><a href={`${import.meta.env.BASE_URL}credentials`} class="text-sm text-gray-300 hover:text-white transition-colors">Our Credentials</a></li>
               <li><a href={`${import.meta.env.BASE_URL}contact`} class="text-sm text-gray-300 hover:text-white transition-colors">Volunteer</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}follow-us`} class="text-sm text-gray-300 hover:text-white transition-colors">Follow Us</a></li>
             </ul>
           </div>
         </div>
@@ -297,6 +333,16 @@ const isActive = (path: string) => {
       mobileSupportToggle?.addEventListener('click', () => {
         mobileSupportSubmenu?.classList.toggle('hidden');
         mobileSupportIcon?.classList.toggle('rotate-180');
+      });
+      
+      // Mobile contact/connect submenu toggle
+      const mobileContactToggle = document.getElementById('mobile-contact-toggle');
+      const mobileContactSubmenu = document.getElementById('mobile-contact-submenu');
+      const mobileContactIcon = document.getElementById('mobile-contact-icon');
+      
+      mobileContactToggle?.addEventListener('click', () => {
+        mobileContactSubmenu?.classList.toggle('hidden');
+        mobileContactIcon?.classList.toggle('rotate-180');
       });
     </script>
     

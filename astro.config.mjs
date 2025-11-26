@@ -2,13 +2,12 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import vercel from '@astrojs/vercel/serverless';
 
-// Build configuration:
-// - Custom domain (kumlawdifoundation.com) uses base: '/' 
-// - GitHub Pages subdomain (dolendupes.github.io/kumlawdi-website) also works with base: '/'
-//   because GitHub Pages will serve the custom domain at root, and the subdomain will
-//   need path adjustments handled at runtime if needed
-// - Local dev uses base: '/' (default)
+// Build configuration for Vercel:
+// - Hybrid output mode: static pages + serverless API routes
+// - Custom domain (kumlawdifoundation.com) uses base: '/'
+// - API routes will be handled by Vercel serverless functions
 
 export default defineConfig({
   site: 'https://kumlawdifoundation.com',
@@ -16,9 +15,11 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
-    tailwind()
+    tailwind(),
+    vercel()
   ],
-  output: 'static',
+  output: 'hybrid', // Hybrid mode: static pages + serverless functions
+  adapter: vercel(),
   build: {
     format: 'directory'
   }
