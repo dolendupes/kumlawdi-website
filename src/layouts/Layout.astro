@@ -195,9 +195,6 @@ const isActive = (path: string) => {
             <p class="text-sm text-gray-300 mb-4">
               A 501(c)(3) nonprofit dedicated to empowering young men and women through sports, mentorship, academic support, and leadership development.
             </p>
-            <p class="text-sm text-gray-300">
-              &copy; 2025 The Kumlawdi Foundation. All rights reserved.
-            </p>
           </div>
           <div>
             <h3 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Navigate</h3>
@@ -216,6 +213,17 @@ const isActive = (path: string) => {
               <li><a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white transition-colors">Donate</a></li>
               <li><a href={`${import.meta.env.BASE_URL}contact`} class="text-sm text-gray-300 hover:text-white transition-colors">Volunteer</a></li>
             </ul>
+          </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-700">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-gray-400">
+              &copy; 2025 The Kumlawdi Foundation. All rights reserved.
+            </p>
+            <div class="flex gap-6">
+              <a href={`${import.meta.env.BASE_URL}privacy-policy`} class="text-xs text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+              <a href={`${import.meta.env.BASE_URL}terms-conditions`} class="text-xs text-gray-400 hover:text-white transition-colors">Terms & Conditions</a>
+            </div>
           </div>
         </div>
       </div>
