@@ -128,10 +128,30 @@ const isActive = (path: string) => {
                 </div>
               </div>
             </div>
-            <a href={`${import.meta.env.BASE_URL}support`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/support') ? 'active' : ''}`}>
-              Support
-              <span class="nav-underline"></span>
-            </a>
+            <!-- Donate Dropdown -->
+            <div class="relative group">
+              <a href={`${import.meta.env.BASE_URL}support`} class={`relative uppercase tracking-wider text-xs font-medium text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/support') || isActive('/credentials') ? 'active' : ''}`}>
+                <span class="inline-flex items-center gap-1 whitespace-nowrap">
+                  <span>Donate</span>
+                  <svg class="w-3 h-3 transition-transform group-hover:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+                <span class="nav-underline"></span>
+              </a>
+              <!-- Dropdown Menu -->
+              <div class="absolute left-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div class="py-2">
+                  <a href={`${import.meta.env.BASE_URL}support`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors font-semibold">
+                    <span>Sponsorship & Giving</span>
+                  </a>
+                  <div class="border-t border-gray-200 my-1"></div>
+                  <a href={`${import.meta.env.BASE_URL}credentials`} class="flex items-center gap-2 px-4 py-2 text-sm text-brand-secondary hover:text-brand-primary hover:bg-brand-light transition-colors">
+                    <span>Our Credentials</span>
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href={`${import.meta.env.BASE_URL}contact`} class={`relative uppercase tracking-wider text-xs font-medium whitespace-nowrap text-brand-secondary hover:text-brand-primary transition-colors nav-link px-2 py-1 ${isActive('/contact') ? 'active' : ''}`}>
               Contact
               <span class="nav-underline"></span>
@@ -172,7 +192,22 @@ const isActive = (path: string) => {
               </a>
             </div>
           </div>
-          <a href={`${import.meta.env.BASE_URL}support`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/support') ? 'border-l-4 border-brand-secondary' : ''}`}>Support</a>
+          <div>
+            <button type="button" id="mobile-support-toggle" class={`w-full flex items-center justify-between px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/support') || isActive('/credentials') ? 'border-l-4 border-brand-secondary' : ''}`}>
+              <span>Donate</span>
+              <svg id="mobile-support-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div id="mobile-support-submenu" class="hidden pl-4">
+              <a href={`${import.meta.env.BASE_URL}support`} class="block px-3 py-2 text-sm text-brand-secondary hover:text-brand-primary">
+                Sponsorship & Giving
+              </a>
+              <a href={`${import.meta.env.BASE_URL}credentials`} class="block px-3 py-2 text-sm text-brand-secondary hover:text-brand-primary">
+                Our Credentials
+              </a>
+            </div>
+          </div>
           <a href={`${import.meta.env.BASE_URL}contact`} class={`block px-3 py-2 uppercase tracking-wider text-sm text-brand-secondary hover:text-brand-primary ${isActive('/contact') ? 'border-l-4 border-brand-secondary' : ''}`}>Contact</a>
         </div>
       </div>
@@ -203,7 +238,7 @@ const isActive = (path: string) => {
               <li><a href={import.meta.env.BASE_URL} class="text-sm text-gray-300 hover:text-white transition-colors">Home</a></li>
               <li><a href={`${import.meta.env.BASE_URL}about`} class="text-sm text-gray-300 hover:text-white transition-colors">About</a></li>
               <li><a href={`${import.meta.env.BASE_URL}teams`} class="text-sm text-gray-300 hover:text-white transition-colors">Teams</a></li>
-              <li><a href={`${import.meta.env.BASE_URL}support`} class="text-sm text-gray-300 hover:text-white transition-colors">Support</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}support`} class="text-sm text-gray-300 hover:text-white transition-colors">Donate</a></li>
               <li><a href={`${import.meta.env.BASE_URL}contact`} class="text-sm text-gray-300 hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -212,6 +247,7 @@ const isActive = (path: string) => {
             <ul class="space-y-2">
               <li><a href={`${import.meta.env.BASE_URL}support`} class="text-sm text-gray-300 hover:text-white transition-colors">Partner With Us</a></li>
               <li><a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white transition-colors">Donate</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}credentials`} class="text-sm text-gray-300 hover:text-white transition-colors">Our Credentials</a></li>
               <li><a href={`${import.meta.env.BASE_URL}contact`} class="text-sm text-gray-300 hover:text-white transition-colors">Volunteer</a></li>
             </ul>
           </div>
@@ -251,6 +287,16 @@ const isActive = (path: string) => {
       mobileTeamsToggle?.addEventListener('click', () => {
         mobileTeamsSubmenu?.classList.toggle('hidden');
         mobileTeamsIcon?.classList.toggle('rotate-180');
+      });
+      
+      // Mobile support submenu toggle
+      const mobileSupportToggle = document.getElementById('mobile-support-toggle');
+      const mobileSupportSubmenu = document.getElementById('mobile-support-submenu');
+      const mobileSupportIcon = document.getElementById('mobile-support-icon');
+      
+      mobileSupportToggle?.addEventListener('click', () => {
+        mobileSupportSubmenu?.classList.toggle('hidden');
+        mobileSupportIcon?.classList.toggle('rotate-180');
       });
     </script>
     
