@@ -25,6 +25,17 @@ This guide will help you deploy the Kumlawdi Foundation website to Vercel with s
   - Set "Production Branch" to your desired branch (e.g., `main`, `vercel`, `production`)
 - **Recommended**: Start with a feature branch (e.g., `vercel-setup`) to test before merging to production
 
+**If you can't see your branch in Vercel:**
+1. **Make sure the branch is pushed to GitHub**: `git push origin your-branch-name`
+2. **Check Vercel project settings**: Go to Project Settings → Git → "Ignored Build Step" - make sure branches aren't ignored
+3. **Trigger a deployment manually**:
+   - Go to Deployments tab in Vercel
+   - Click "Create Deployment"
+   - Select your branch from the dropdown
+   - Click "Deploy"
+4. **Check branch visibility**: Vercel only shows branches that have been pushed to GitHub. If you created the branch locally but haven't pushed it, Vercel won't see it.
+5. **Verify repository connection**: Make sure Vercel has access to your GitHub repository and can see all branches
+
 ### 2. Configure Environment Variables
 
 In the Vercel project settings, add these environment variables:

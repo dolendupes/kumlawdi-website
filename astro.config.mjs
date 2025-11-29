@@ -2,10 +2,10 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 // Build configuration for Vercel:
-// - Hybrid output mode: static pages + serverless API routes
+// - Server output mode: enables API routes + static pages
 // - Custom domain (kumlawdifoundation.com) uses base: '/'
 // - API routes will be handled by Vercel serverless functions
 
@@ -16,9 +16,8 @@ export default defineConfig({
     mdx(),
     sitemap(),
     tailwind(),
-    vercel()
   ],
-  output: 'hybrid', // Hybrid mode: static pages + serverless functions
+  output: 'server', // Server mode: enables API routes (pages are still pre-rendered when possible)
   adapter: vercel(),
   build: {
     format: 'directory'

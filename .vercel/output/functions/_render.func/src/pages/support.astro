@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Support Us - The Kumlawdi Foundation" description="Partner with The Kumlawdi Foundation or make a donation to support youth empowerment through football, mentorship, and academic growth.">
+  <div class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-brand-light to-white min-h-[360px] md:min-h-[400px] flex items-center overflow-hidden">
+      <!-- Subtle Background Logo -->
+      <div class="absolute inset-0 w-full h-full z-0 flex items-center justify-center opacity-5">
+        <img
+          src={`${import.meta.env.BASE_URL}images/kumlawdi-logo-monochrome.png`}
+          alt=""
+          class="w-full max-w-2xl h-auto object-contain"
+          aria-hidden="true"
+        />
+      </div>
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center max-w-3xl mx-auto">
+          <h1 class="text-4xl md:text-5xl font-bold text-brand-primary mb-3 font-inter">
+            Support Our Mission
+          </h1>
+          <p class="text-sm md:text-base text-brand-gray leading-relaxed mb-3">
+            Your support makes transformative programs possible. Join us in empowering the next generation of leaders, athletes, and professionals.
+          </p>
+          <p class="text-xs text-brand-gray">
+            <a href={`${import.meta.env.BASE_URL}credentials`} class="text-brand-secondary hover:text-brand-primary underline">Verify our 501(c)(3) status and credentials →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partnership Section -->
+    <section class="py-12 lg:py-16 bg-brand-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-4xl font-bold text-brand-primary mb-8 text-center font-inter">Partnership Benefits</h2>
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center justify-center w-12 h-12 bg-brand-secondary/10 rounded-full">
+                  <svg class="w-6 h-6 text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-brand-primary font-inter">Your Impact</h3>
+              </div>
+              <ul class="space-y-2 text-brand-gray">
+                <li>• Equipment, uniforms, and game-day essentials</li>
+                <li>• Travel support for tournaments and away games</li>
+                <li>• Training resources and competitive opportunities</li>
+                <li>• Scholarship opportunities for academic and athletic goals</li>
+              </ul>
+            </div>
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center justify-center w-12 h-12 bg-brand-secondary/10 rounded-full">
+                  <svg class="w-6 h-6 text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-brand-primary font-inter">Your Visibility</h3>
+              </div>
+              <ul class="space-y-2 text-brand-gray">
+                <li>• Game-day banners and tournament signage</li>
+                <li>• Logo placement on uniforms and promotional materials</li>
+                <li>• Social media recognition and newsletter features</li>
+                <li>• Community-wide brand exposure</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsorship Packages -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-brand-primary mb-4 text-center font-inter">Sponsorship Levels</h2>
+        <p class="text-center text-brand-gray mb-12 max-w-2xl mx-auto">
+          Choose the sponsorship level that aligns with your organization's goals. We're also happy to work with you to create a customized sponsorship opportunity.
+        </p>
+        
+        <!-- Main Sponsorship Tiers -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white p-8 rounded-lg shadow-md border border-gray-200 flex flex-col text-center hover:shadow-lg hover:border-brand-secondary transition-all cursor-pointer">
+            <div class="text-3xl font-bold text-brand-secondary mb-2">$1,000+</div>
+            <h3 class="text-xl font-bold text-brand-primary mb-6 font-inter">Freshman</h3>
+            <ul class="space-y-2 text-brand-gray text-sm mb-6 flex-grow text-left">
+              <li>• Logo on website & flyers</li>
+              <li>• Social media recognition</li>
+            </ul>
+            <span class="text-brand-secondary font-semibold text-sm mt-auto">Donate →</span>
+          </a>
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white p-8 rounded-lg shadow-md border border-gray-200 flex flex-col text-center hover:shadow-lg hover:border-brand-secondary transition-all cursor-pointer">
+            <div class="text-3xl font-bold text-brand-secondary mb-2">$2,500+</div>
+            <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Junior Varsity</h3>
+            <p class="text-xs text-brand-gray mb-4 italic">All Freshman benefits, plus:</p>
+            <ul class="space-y-2 text-brand-gray text-sm mb-6 flex-grow text-left">
+              <li>• Logo on team shirts</li>
+              <li>• Press release recognition</li>
+              <li>• Featured social media post</li>
+              <li>• Event & banquet recognition</li>
+            </ul>
+            <span class="text-brand-secondary font-semibold text-sm mt-auto">Donate →</span>
+          </a>
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white p-8 rounded-lg shadow-md border border-gray-200 flex flex-col text-center hover:shadow-lg hover:border-brand-secondary transition-all cursor-pointer">
+            <div class="text-3xl font-bold text-brand-secondary mb-2">$5,000+</div>
+            <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">Varsity</h3>
+            <p class="text-xs text-brand-gray mb-4 italic">All Junior Varsity benefits, plus:</p>
+            <ul class="space-y-2 text-brand-gray text-sm mb-6 flex-grow text-left">
+              <li>• Larger logo placement</li>
+              <li>• Priority event recognition</li>
+              <li>• Enhanced social media features</li>
+            </ul>
+            <span class="text-brand-secondary font-semibold text-sm mt-auto">Donate →</span>
+          </a>
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white p-8 rounded-lg shadow-md border border-gray-200 flex flex-col text-center hover:shadow-lg hover:border-brand-secondary transition-all cursor-pointer">
+            <div class="text-3xl font-bold text-brand-secondary mb-2">$10,000+</div>
+            <h3 class="text-xl font-bold text-brand-primary mb-2 font-inter">5-Star Title</h3>
+            <p class="text-xs text-brand-gray mb-4 italic">All Varsity benefits, plus:</p>
+            <ul class="space-y-2 text-brand-gray text-sm mb-6 flex-grow text-left">
+              <li>• Banner logo placement</li>
+              <li>• Exclusive press mentions</li>
+              <li>• Sponsor appreciation plaque</li>
+              <li>• Custom partnership opportunities</li>
+            </ul>
+            <span class="text-brand-secondary font-semibold text-sm mt-auto">Donate →</span>
+          </a>
+        </div>
+
+        <!-- Direct Athlete & Team Sponsorships -->
+        <div class="mt-16 pt-12 border-t-2 border-brand-gray">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-brand-primary font-inter mb-2">Direct Athlete & Team Sponsorships</h3>
+            <p class="text-brand-gray text-sm mb-4">Support a specific athlete or team directly</p>
+            <button 
+              id="individual-sponsorships-toggle" 
+              class="inline-flex items-center gap-2 px-6 py-2 bg-brand-secondary/10 hover:bg-brand-secondary/20 text-brand-secondary font-semibold rounded-full transition-colors cursor-pointer"
+            >
+              <span>View Options</span>
+              <svg id="individual-sponsorships-icon" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <div id="individual-sponsorships-content" class="hidden">
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-brand-light p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:border-brand-secondary transition-all cursor-pointer block">
+                <div class="text-2xl font-bold text-brand-secondary mb-3">$250+</div>
+                <h4 class="text-lg font-bold text-brand-primary mb-3 font-inter">Athlete Sponsorship</h4>
+                <p class="text-brand-gray text-sm mb-3">
+                  Covers equipment & fees for one athlete (headgear, cleats, gloves)
+                </p>
+                <ul class="space-y-1 text-brand-gray text-sm mb-4">
+                  <li>• Personalized thank-you photo from the sponsored athlete</li>
+                </ul>
+                <span class="text-brand-secondary font-semibold text-sm">Donate →</span>
+              </a>
+              <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-brand-light p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:border-brand-secondary transition-all cursor-pointer block">
+                <div class="text-2xl font-bold text-brand-secondary mb-3">$500+</div>
+                <h4 class="text-lg font-bold text-brand-primary mb-3 font-inter">Team Sponsorship</h4>
+                <p class="text-brand-gray text-sm mb-3">
+                  Helps cover equipment & fees for one team (uniforms, headgear, cleats, or gloves)
+                </p>
+                <ul class="space-y-1 text-brand-gray text-sm mb-4">
+                  <li>• Personalized thank-you photo from the entire team</li>
+                </ul>
+                <span class="text-brand-secondary font-semibold text-sm">Donate →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ways to Get Involved -->
+    <section class="py-16 bg-brand-light">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-brand-primary mb-8 text-center font-inter">Ways to Get Involved</h2>
+        <div class="space-y-6">
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+            <h3 class="text-2xl font-bold text-brand-primary mb-3 font-inter">Sponsor a Program</h3>
+            <p class="text-brand-gray">
+              Directly fund a program area to impact youth development. Choose to support training, travel, equipment, or scholarships. Your contribution will directly support training, training equipment, youth scholarships, program expansion, event costs, and more—making a tangible impact on the lives of the student-athletes and families we serve.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+            <h3 class="text-2xl font-bold text-brand-primary mb-3 font-inter">Volunteer Your Time</h3>
+            <p class="text-brand-gray">
+              Mentor our athletes, assist with tutoring, or support events. Your time and expertise make a meaningful difference. We welcome volunteers who share our commitment to youth empowerment.
+            </p>
+            <a href={`${import.meta.env.BASE_URL}contact`} class="text-brand-secondary font-semibold hover:underline mt-2 inline-block">Contact us to volunteer →</a>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+            <h3 class="text-2xl font-bold text-brand-primary mb-3 font-inter">Donate</h3>
+            <p class="text-brand-gray mb-4">
+              Every dollar helps us reduce financial barriers and provide life-changing opportunities. We fundraise with Zeffy to ensure 100% of your donation goes to our mission!
+            </p>
+            <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="btn-primary inline-block">
+              Donate Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-brand-secondary/5">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-brand-primary mb-4 font-inter">Ready to Make an Impact?</h2>
+        <p class="text-lg text-brand-gray mb-8">
+          Together, we can continue creating pathways of opportunity and building leaders on and off the field. Your support demonstrates your investment in the growth and future of young people in our community.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-brand-secondary text-white px-6 py-3 rounded font-semibold hover:bg-brand-primary transition-colors inline-block text-center">
+            Donate Now
+          </a>
+          <a href={`${import.meta.env.BASE_URL}contact`} class="bg-white border-2 border-brand-secondary text-brand-secondary px-6 py-3 rounded font-semibold hover:bg-brand-light transition-colors inline-block text-center">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Toggle individual sponsorships section
+    const toggle = document.getElementById('individual-sponsorships-toggle');
+    const content = document.getElementById('individual-sponsorships-content');
+    const icon = document.getElementById('individual-sponsorships-icon');
+    
+    if (toggle && content && icon) {
+      toggle.addEventListener('click', () => {
+        const isHidden = content.classList.contains('hidden');
+        content.classList.toggle('hidden');
+        icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+      });
+    }
+  </script>
+</Layout>
