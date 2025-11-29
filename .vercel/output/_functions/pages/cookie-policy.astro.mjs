@@ -1,0 +1,69 @@
+/* empty css                                 */
+import { f as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from '../chunks/astro/server_BVS5fME2.mjs';
+import 'piccolore';
+import { $ as $$Layout } from '../chunks/Layout_D8qTNMmH.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$CookiePolicy = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Cookie Policy - The Kumlawdi Foundation", "description": "The Kumlawdi Foundation's cookie policy explaining how we use cookies and tracking technologies on our website." }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<section class="relative bg-gradient-to-b from-brand-light to-white min-h-[360px] md:min-h-[400px] flex items-center overflow-hidden"> <!-- Subtle Background Logo --> <div class="absolute inset-0 w-full h-full z-0 flex items-center justify-center opacity-5"> <img${addAttribute(`${"/"}images/kumlawdi-logo-monochrome.png`, "src")} alt="" class="w-full max-w-2xl h-auto object-contain" aria-hidden="true"> </div> <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"> <div class="text-center max-w-3xl mx-auto"> <h1 class="text-4xl md:text-5xl font-bold text-brand-primary mb-3 font-inter">
+Cookie Policy
+</h1> <p class="text-sm md:text-base text-brand-gray leading-relaxed"> <strong>Last Updated:</strong> November 2025
+</p> </div> </div> </section>  <section class="py-20 bg-white"> <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="prose prose-lg max-w-none"> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary">INTRODUCTION</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+This Cookie Policy explains how The Kumlawdi Foundation Inc. ("The Kumlawdi Foundation," "we," "our," or "us") uses cookies and similar tracking technologies on our website (https://kumlawdifoundation.com). This policy should be read in conjunction with our <a${addAttribute(`${"/"}privacy-policy`, "href")} class="text-brand-secondary hover:underline">Privacy Policy</a>.
+</p> <p class="text-brand-gray mb-8 leading-relaxed">
+By using our website, you consent to the use of cookies in accordance with this Cookie Policy. If you do not agree to our use of cookies, you should adjust your browser settings accordingly or refrain from using our website.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">WHAT ARE COOKIES?</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+Cookies are small text files that are placed on your device (computer, tablet, or mobile) when you visit a website. Cookies are widely used to make websites work more efficiently and to provide information to website owners.
+</p> <p class="text-brand-gray mb-8 leading-relaxed">
+Cookies allow a website to recognize your device and store some information about your preferences or past actions. They help us understand how visitors use our website, which enables us to improve the user experience and deliver relevant content.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">TYPES OF COOKIES WE USE</h2> <h3 class="font-inter font-bold text-xl mb-4 mt-8">Essential Cookies</h3> <p class="text-brand-gray mb-4 leading-relaxed">
+These cookies are necessary for the website to function properly. They enable basic functions like page navigation, form submissions, and access to secure areas of the website. The website cannot function properly without these cookies.
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li>Session management cookies</li> <li>Security cookies</li> <li>Load balancing cookies</li> </ul> <h3 class="font-inter font-bold text-xl mb-4 mt-8">Analytics and Performance Cookies</h3> <p class="text-brand-gray mb-4 leading-relaxed">
+These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. This helps us improve the way our website works and measure the effectiveness of our content.
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li>Page views and navigation patterns</li> <li>Time spent on pages</li> <li>Error messages and page load times</li> <li>Traffic sources and referral information</li> </ul> <h3 class="font-inter font-bold text-xl mb-4 mt-8">Marketing and Advertising Cookies</h3> <p class="text-brand-gray mb-4 leading-relaxed">
+These cookies are used to deliver relevant advertisements and track the effectiveness of our marketing campaigns. They may also be used to limit the number of times you see an advertisement and help measure the effectiveness of advertising campaigns.
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li>Campaign performance tracking</li> <li>Ad targeting and retargeting</li> <li>Conversion tracking</li> <li>Social media integration and tracking</li> </ul> <h3 class="font-inter font-bold text-xl mb-4 mt-8">Preference Cookies</h3> <p class="text-brand-gray mb-4 leading-relaxed">
+These cookies allow our website to remember information about how you prefer to browse and interact with our site, such as your language preference or region, so we can provide you with a more personalized experience.
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li>Language preferences</li> <li>Display preferences</li> <li>User interface customization</li> </ul> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">THIRD-PARTY COOKIES</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+In addition to our own cookies, we may also use various third-party cookies to report usage statistics, deliver advertisements, and provide other services. These third parties may include:
+</p> <ul class="list-disc pl-6 mb-6 text-brand-gray space-y-2"> <li>Analytics service providers</li> <li>Social media platforms</li> <li>Advertising networks</li> <li>Content delivery networks</li> <li>Form collection and processing services</li> </ul> <p class="text-brand-gray mb-8 leading-relaxed">
+These third parties may use cookies to collect information about your online activities across different websites. We do not control these third-party cookies, and they are subject to the privacy policies of the respective third parties. We encourage you to review the privacy and cookie policies of these third parties.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">OTHER TRACKING TECHNOLOGIES</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+In addition to cookies, we may use other tracking technologies, including:
+</p> <ul class="list-disc pl-6 mb-6 text-brand-gray space-y-2"> <li><strong>Web Beacons:</strong> Small graphic images that may be included on our website or emails to track user engagement</li> <li><strong>Pixels:</strong> Code snippets that allow us to measure the effectiveness of our marketing campaigns</li> <li><strong>Tags:</strong> Code snippets that help us understand user behavior and website performance</li> <li><strong>Local Storage:</strong> Technology that allows websites to store information locally on your device</li> </ul> <p class="text-brand-gray mb-8 leading-relaxed">
+These technologies work similarly to cookies and are used for similar purposes. The information collected through these technologies may be combined with information collected through cookies.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">HOW TO MANAGE COOKIES</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+You have the right to accept or reject cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings to decline cookies if you prefer. However, please note that disabling cookies may impact your ability to use certain features of our website.
+</p> <h3 class="font-inter font-bold text-xl mb-4 mt-8">Browser Settings</h3> <p class="text-brand-gray mb-4 leading-relaxed">
+You can control cookies through your browser settings. Most browsers allow you to:
+</p> <ul class="list-disc pl-6 mb-6 text-brand-gray space-y-2"> <li>View what cookies are stored on your device</li> <li>Delete cookies individually or all at once</li> <li>Block cookies from specific websites</li> <li>Block all cookies</li> <li>Set your browser to notify you when cookies are being set</li> <li>Delete cookies when you close your browser</li> </ul> <p class="text-brand-gray mb-6 leading-relaxed">
+Instructions for managing cookies in popular browsers:
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li><strong>Chrome:</strong> Settings → Privacy and security → Cookies and other site data</li> <li><strong>Firefox:</strong> Options → Privacy & Security → Cookies and Site Data</li> <li><strong>Safari:</strong> Preferences → Privacy → Cookies and website data</li> <li><strong>Edge:</strong> Settings → Privacy, search, and services → Cookies and site permissions</li> </ul> <h3 class="font-inter font-bold text-xl mb-4 mt-8">Opt-Out Tools</h3> <p class="text-brand-gray mb-4 leading-relaxed">
+You can also opt out of certain third-party cookies and tracking technologies through:
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li>Third-party opt-out tools provided by analytics and advertising providers</li> <li>Industry opt-out pages, such as the Digital Advertising Alliance's opt-out page</li> <li>Your device's privacy settings for mobile applications</li> </ul> <p class="text-brand-gray mb-8 leading-relaxed">
+Please note that opting out of cookies does not mean you will no longer see advertisements. It means that the advertisements you see may be less relevant to your interests.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">COOKIE RETENTION</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+Cookies may be either "persistent" or "session" cookies:
+</p> <ul class="list-disc pl-6 mb-6 text-brand-gray space-y-2"> <li><strong>Session cookies:</strong> Temporary cookies that expire when you close your browser</li> <li><strong>Persistent cookies:</strong> Cookies that remain on your device for a set period or until you delete them</li> </ul> <p class="text-brand-gray mb-8 leading-relaxed">
+The retention period for cookies varies depending on their purpose. Essential cookies are typically session cookies, while analytics and marketing cookies may persist for longer periods. We retain cookie data in accordance with our <a${addAttribute(`${"/"}privacy-policy`, "href")} class="text-brand-secondary hover:underline">Privacy Policy</a>.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">UPDATES TO THIS COOKIE POLICY</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. When we make changes, we will:
+</p> <ul class="list-disc pl-6 mb-8 text-brand-gray space-y-2"> <li>Post the updated Cookie Policy on our website</li> <li>Update the "Last Updated" date</li> <li>Notify you of material changes if required by law</li> </ul> <p class="text-brand-gray mb-8 leading-relaxed">
+Your continued use of our website after any changes to this Cookie Policy constitutes acceptance of those changes.
+</p> <h2 class="font-inter font-bold text-2xl mb-6 text-brand-secondary mt-12">CONTACT INFORMATION</h2> <p class="text-brand-gray mb-4 leading-relaxed">
+If you have questions about our use of cookies or this Cookie Policy, please contact us:
+</p> <div class="bg-brand-light p-6 rounded-lg mb-8"> <p class="text-brand-gray mb-2"><strong>The Kumlawdi Foundation Inc.</strong></p> <p class="text-brand-gray mb-2">3501 Bessie Coleman Blvd. Suite #21843</p> <p class="text-brand-gray mb-2">Tampa, FL 33622</p> <p class="text-brand-gray mb-2">Phone: <a href="tel:8132609518" class="text-brand-secondary hover:underline">813-260-9518</a></p> <p class="text-brand-gray mb-2">Email: <a href="mailto:info@kumlawdifoundation.com" class="text-brand-secondary hover:underline">info@kumlawdifoundation.com</a></p> <p class="text-brand-gray">Website: <a href="https://kumlawdifoundation.com" class="text-brand-secondary hover:underline">https://kumlawdifoundation.com</a></p> </div> <p class="text-brand-gray mb-8 leading-relaxed italic"> <strong>For more information about how we handle your personal information, please review our <a${addAttribute(`${"/"}privacy-policy`, "href")} class="text-brand-secondary hover:underline">Privacy Policy</a>.</strong> </p> </div> </div> </section> ` })}`;
+}, "/Users/dolendupes/workspace/flex/kumlawdi-website/src/pages/cookie-policy.astro", void 0);
+const $$file = "/Users/dolendupes/workspace/flex/kumlawdi-website/src/pages/cookie-policy.astro";
+const $$url = "/cookie-policy";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$CookiePolicy,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

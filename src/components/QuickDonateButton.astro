@@ -246,9 +246,10 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-  // Configuration - Set these via environment variables
-  const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
-  const API_ENDPOINT = import.meta.env.PUBLIC_API_ENDPOINT || '/api/create-payment-intent';
+          // Configuration - Set these via environment variables
+          const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+          // API endpoint - defaults to relative path for Vercel serverless function
+          const API_ENDPOINT = import.meta.env.PUBLIC_API_ENDPOINT || '/api/create-payment-intent';
   
   // Quick Donate Button Logic
   (function() {

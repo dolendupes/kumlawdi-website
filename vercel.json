@@ -1,0 +1,14 @@
+{
+  "buildCommand": "make build",
+  "outputDirectory": "dist",
+  "devCommand": "make dev",
+  "installCommand": "make install",
+  "framework": "astro",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ]
+}
+

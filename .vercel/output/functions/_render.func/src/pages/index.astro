@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="The Kumlawdi Foundation - Empowering Youth, Building Leaders" description="The Kumlawdi Foundation empowers young men and women through sports, mentorship, academic support, and leadership development. Building character, discipline, confidence, and leadership.">
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-b from-brand-light to-white min-h-[360px] md:min-h-[400px] flex items-center overflow-hidden">
+    <!-- Subtle Background Logo -->
+    <div class="absolute inset-0 w-full h-full z-0 flex items-center justify-center opacity-5">
+      <img
+        src={`${import.meta.env.BASE_URL}images/kumlawdi-logo-monochrome.png`}
+        alt=""
+        class="w-full max-w-2xl h-auto object-contain"
+        aria-hidden="true"
+      />
+    </div>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold text-brand-primary mb-3 font-inter">
+          Empowering Youth, Building Leaders
+        </h1>
+        <p class="text-base md:text-lg text-brand-secondary font-semibold mb-2 tracking-wide">
+          Character. Discipline. Confidence. Leadership.
+        </p>
+        <p class="text-sm md:text-base text-brand-gray mb-5">
+          A 501(c)(3) nonprofit organization dedicated to empowering young men and women through sports, mentorship, and leadership development.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`${import.meta.env.BASE_URL}support`} class="bg-brand-secondary text-white px-8 py-3 rounded font-semibold hover:bg-brand-primary transition-colors inline-block text-center">
+            Become a Partner
+          </a>
+          <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white text-brand-secondary px-8 py-3 rounded font-semibold border-2 border-brand-secondary hover:bg-brand-light transition-colors inline-block text-center">
+            Donate Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Composite Image -->
+  <section class="py-12 lg:py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-5xl mx-auto">
+        <img 
+          src={`${import.meta.env.BASE_URL}images/kumlawdi-composite.jpg`}
+          alt="The Kumlawdi Foundation - Our Teams"
+          class="w-full h-auto rounded-lg shadow-2xl object-contain"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="py-12 lg:py-16 bg-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-brand-primary mb-6 font-inter">
+          Our Mission
+        </h2>
+        <p class="text-lg text-brand-gray leading-relaxed mb-8">
+          We strive to make training and personal development accessible to all, regardless of financial barriers, creating a supportive environment where every young person can thrive.
+        </p>
+        <p class="text-lg text-brand-gray leading-relaxed">
+          The Kumlawdi Foundation prepares youth for success in all areas of life—on the field, in the classroom, and in their communities—by removing barriers and providing pathways to excellence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold text-brand-primary mb-4 font-inter">
+          Building Community Through Development
+        </h2>
+        <p class="text-lg text-brand-gray max-w-2xl mx-auto mb-4">
+          We bring together young people who share a passion for excellence through mentorship, training workshops, academic coaching, leadership development, and athletic programs. Our football teams—Lady Yakpak and Tampa Flex—serve as one pathway, alongside unique experiences such as college tours and career exposure, creating connections and shared experiences that build lasting community.
+        </p>
+        <p class="text-lg text-brand-gray max-w-2xl mx-auto">
+          This community extends beyond our programs—we encourage our youth to give back through charitable events and community causes, and our alumni and older participants mentor and support younger kids, creating a cycle of growth and service that strengthens the entire community.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 mt-12">
+        <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+          <div class="flex items-center justify-center w-16 h-16 bg-brand-secondary/10 rounded-full mb-4">
+            <svg class="w-8 h-8 text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-brand-primary mb-4 font-inter">Athletic Excellence</h3>
+          <p class="text-brand-gray">
+            Providing equipment, uniforms, and game-day essentials to ensure our athletes can compete at the highest level.
+          </p>
+        </div>
+        <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+          <div class="flex items-center justify-center w-16 h-16 bg-brand-secondary/10 rounded-full mb-4">
+            <svg class="w-8 h-8 text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-brand-primary mb-4 font-inter">Academic Growth</h3>
+          <p class="text-brand-gray">
+            Supporting scholarship opportunities and college readiness programs to help our players achieve their academic goals.
+          </p>
+        </div>
+        <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+          <div class="flex items-center justify-center w-16 h-16 bg-brand-secondary/10 rounded-full mb-4">
+            <svg class="w-8 h-8 text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-brand-primary mb-4 font-inter">Life Skills</h3>
+          <p class="text-brand-gray">
+            Offering mentorship, career development, and unique experiences that prepare youth for success beyond athletics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-brand-secondary text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 font-inter">
+        Join Us in Making a Difference
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+        Your support makes these transformative programs possible. Together, we can inspire the next generation of leaders, athletes, and professionals.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={`${import.meta.env.BASE_URL}support`} class="btn-outline inline-block text-center">
+          Learn How to Partner
+        </a>
+        <a href="https://www.zeffy.com/en-US/donation-form/sponsorship-proposal-package" target="_blank" rel="noopener noreferrer" class="bg-white text-brand-secondary px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors inline-block text-center">
+          Donate Now
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
